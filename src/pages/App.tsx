@@ -1,7 +1,7 @@
 import { useContext, useEffect } from 'react'
 import { Routes , Route, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../contexts/firebase-context'
-import Home from './home'
+import Login from './login'
 import Profile from './profile'
 
 function App() {
@@ -20,8 +20,8 @@ function App() {
   
   return (
     <Routes>
-      <Route index element={<Home />} />
-      <Route path="profile" element={currentUser ? <Profile />: <Home />} />
+      <Route index element={<Login />} />
+      <Route path="profile" element={currentUser ? <Profile />: <Login />} />
     </Routes>
   )
 }

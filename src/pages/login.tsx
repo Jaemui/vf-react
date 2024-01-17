@@ -2,14 +2,13 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { signInUser } from '../config/firebase'
 import { useNavigate } from 'react-router-dom'
-import '.././App.css'
 
 const defaultFormFields = {
   email: '',
   password: '',
 }
 
-function Home() {
+function Login() {
   const [formFields, setFormFields] = useState(defaultFormFields)
   const { email, password } = formFields
   const navigate = useNavigate()
@@ -74,4 +73,4 @@ function Home() {
   )
 }
 
-export default Home
+export default Login
