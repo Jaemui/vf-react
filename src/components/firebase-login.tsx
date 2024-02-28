@@ -6,11 +6,16 @@ import { signInUser } from '../config/firebase';
 import { useNavigate } from 'react-router-dom';
 
 const validationSchema = Yup.object({
-    email: Yup.string().email('Invalid email format').required('Required'),
-    password: Yup.string().required('Required'),
-  });
+    email: Yup
+        .string()
+        .email('Invalid email format')
+        .required('Required'),
+    password: Yup
+        .string()
+        .required('Required'),
+});
   
-  const FirebaseLogin = () => {
+const FirebaseLogin = () => {
     const navigate = useNavigate();
     const formik = useFormik({
       initialValues: {
@@ -71,7 +76,12 @@ const validationSchema = Yup.object({
                 </Button>
             </form>
             <Typography variant="body1" sx={{ mt: 2, textAlign: 'center' }}>
-            Don’t have an account? <Link href="/register">Create one</Link>
+            Don’t have an account? 
+            <Link href="/register" 
+                  onClick={(e) => {
+                    e.preventDefault(); 
+                    navigate('/signup'); 
+              }}>Create one</Link>
             </Typography>
         </Box>
       </Container>

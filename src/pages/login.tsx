@@ -1,7 +1,7 @@
 
 import FirebaseLogin from '../components/firebase-login';
 
-function Login() {
+const Login = () => {
   return (
     <div>
       <FirebaseLogin />
