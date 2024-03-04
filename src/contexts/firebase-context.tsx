@@ -1,7 +1,7 @@
 
 import { User } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import { signOutUser, userStateListener } from "../config/firebase";
+import { signOutUser, userStateListener } from "../config/firebase-auth";
 import { createContext, useState, useEffect, ReactNode } from "react";
 
 interface AuthProviderProps {

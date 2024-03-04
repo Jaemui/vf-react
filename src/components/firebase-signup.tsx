@@ -2,7 +2,7 @@ import React from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Button, TextField, Box, Typography, Link, Container, CssBaseline, Grid } from '@mui/material';
-import { registerUser } from '../config/firebase';
+import { registerUser } from '../config/firebase-auth';
 import { useNavigate } from 'react-router-dom';
 
 

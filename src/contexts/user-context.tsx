@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect, useContext, ReactNode } from "react";
 import { DBUser } from "../models"
 import { AuthContext } from './firebase-context';
+import { doc, getDoc } from 'firebase/firestore';
 import { db } from "../utils"
 
 
@@ -38,22 +39,27 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     const { currentUser: authUser } = useContext(AuthContext); 
 
     useEffect(() => {
+        const fetchUser = async () => {
         if (authUser) {
           // Fetch the user document from Firestore using the UID from authUser
-          const userDocRef = db.DBUser.doc(authUser.uid); // Assuming db.DBUser references the 'users' collection
-          userDocRef.get().then((doc) => {
-            if (doc.exists) {
-              setCurrentUser(doc.data() as DBUser); // Set the fetched user document as the currentUser in UserContext
+          const userDocRef = doc(db.DBUser, String(authUser.uid)); // Assuming db.DBUser references the 'users' collection
+          try {
+            const docSnap = await getDoc(userDocRef);
+            if (docSnap.exists()) {
+              setCurrentUser(docSnap.data() as DBUser); // Set the fetched user document as the currentUser in UserContext
             } else {
               console.log("No such document!");
+              setCurrentUser(null);
             }
-          }).catch((error) => {
-            console.log("Error getting document:", error);
-          });
+          } catch {
+            console.log("Error getting document:");
+          };
         } else {
           setCurrentUser(null); // No user is signed in
         }
-      }, [authUser]);
+    };
+    fetchUser();
+    }, [authUser]);
 
     const value = {
         currentDBUser,

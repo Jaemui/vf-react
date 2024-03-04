@@ -1,16 +1,24 @@
-import { firestore } from "firebase-admin"
+import { firestore } from "./config/firebase"
+import { getFirestore, doc, setDoc, collection, DocumentData, 
+    QueryDocumentSnapshot  } from 'firebase/firestore';
 import { DBUser } from "./models"
 
-const converter = <T>() => ({
-  toFirestore: (data: T) : FirebaseFirestore.DocumentData => {
-    return data as unknown as FirebaseFirestore.DocumentData;
-  },
-  fromFirestore: (snap: FirebaseFirestore.QueryDocumentSnapshot) =>
-    snap.data() as T
-})
 
-const dataPoint = <T>(collectionPath: string) => 
-    firestore().collection(collectionPath).withConverter(converter<T>());
+const converter = <T>() => ({
+    toFirestore: (data: T): DocumentData => {
+      // Ensure your data is compatible with Firestore's expected types
+      return data as unknown as DocumentData;
+    },
+    fromFirestore: (snap: QueryDocumentSnapshot): T => {
+      // Directly use the data as T assuming it matches your expected structure
+      return snap.data() as T;
+    },
+    });
+
+const dataPoint = <T>(collectionPath: string) => {
+    return collection(firestore, collectionPath).withConverter(converter<T>());
+    };
+  
 
 const db = {
     DBUser : dataPoint<DBUser>('users'),

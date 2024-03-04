@@ -8,11 +8,11 @@ import { SignUp } from './signup'
 
 function App() {
   const { currentUser } = useContext(AuthContext)
-  // const { currentDBUser } = useContext(UserContext)
+  const { currentDBUser } = useContext(UserContext)
   const navigate = useNavigate()
 
   // NOTE: console log for testing purposes
-  // console.log(currentDBUser)
+  console.log(currentDBUser)
   console.log('User:', !!currentUser);
 
   // Check if the current user exists on the initial render.
